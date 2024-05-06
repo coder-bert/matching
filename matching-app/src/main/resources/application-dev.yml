@@ -1,0 +1,46 @@
+spring:
+  application:
+    name: matching-app
+  kafka:
+    bootstrap-servers: localhost:9094
+    producer:
+      acks: all
+    consumer:
+      enable-auto-commit: true
+      auto-commit-interval: 5000
+      group-id: matchingGroupId
+
+logging:
+  config: classpath:logback-spring.xml
+
+## 如果要保证发送的数据严格有序，需要:
+  # is-send-async=false
+  # send-retry-times=-1
+matching:
+#  limit-symbols: ["ETH1", "ETH2","ETH3", "ETH4","ETH5","ETH6"]             # 限制本撮合处理的交易对
+#  limit-symbols: ["ETH1"]                          # 限制本撮合处理的交易对
+  limit-symbols: []                                 # 限制本撮合处理的交易对
+  auto-create-if-not-exist: true                    # 撮合时遇到新的交易对是否支持自动创建处理
+  queue-buffer-size: 128                            # kafka consumer与撮合间队列长度
+
+  dump-path: C:\tmp\matching                        # dump文件目录
+  dump-interval: 300                                # dump时间间隔，单位：秒
+  min-dump-interval: 60                             # dump最小时间间隔，避免太频繁，单位：秒
+
+  consume-interval: 5                               # 消费轮训时长
+  consumer-topics: ["topic05"]                      # 消费的topic列表，由于是手动订阅，不需要跟coordinator交互（join，sync等）
+  consumer-topic-offsets:
+    topic05: [0,1,2,3,4]                            # 如果topic对应多partition时需要配置，否则消费不到。不配置默认只消费0分区
+
+  producer-topic: "orderResults05"                  # 下游kafka topic
+  is-send-async: false                              # 下游kafka同步发送or异步发送
+  is-batch: true                                    # true: disruptor批量处理，撮合后批量发送kafka【提高性能】
+  batch-size: 1024                                  # 批量发送时，超过此数立即执行
+  send-retry-times: -1                              # [同步+异步] -1:一直尝试 0:不重试 >0:重试次数
+  async-send-retry-capacity: 10000                  # [异步] <=0时表示禁止重试
+
+  waiting-close-timeout: 60000                      # 等待退出超时时间，ms。数据量比较大时可能需要时间比较长
+
+  is-test: true
+  is-discard: false
+  is-test-consumer: true

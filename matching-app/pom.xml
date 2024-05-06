@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>com.mybit</groupId>
+        <artifactId>matching</artifactId>
+        <version>0.0.1-SNAPSHOT</version>
+        <relativePath>../pom.xml</relativePath>
+    </parent>
+
+    <groupId>com.mybit</groupId>
+    <artifactId>matching-app</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+<!--    <version>${revision}</version>-->
+    <packaging>jar</packaging>
+
+    <properties>
+        <java.version>17</java.version>
+    </properties>
+    <dependencies>
+        <dependency>
+            <groupId>com.mybit</groupId>
+            <artifactId>matching-core</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+<!--            <version>${revision}</version>-->
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.kafka</groupId>
+            <artifactId>spring-kafka</artifactId>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <configuration>
+                    <excludes>
+                        <exclude>
+                            <groupId>org.projectlombok</groupId>
+                            <artifactId>lombok</artifactId>
+                        </exclude>
+                    </excludes>
+                </configuration>
+            </plugin>
+
+            <!-- 获取git.properties -->
+<!--            <plugin>-->
+<!--                <groupId>pl.project13.maven</groupId>-->
+<!--                <artifactId>git-commit-id-plugin</artifactId>-->
+<!--                <executions>-->
+<!--                    <execution>-->
+<!--                        <goals>-->
+<!--                            <goal>revision</goal>-->
+<!--                        </goals>-->
+<!--                    </execution>-->
+<!--                </executions>-->
+<!--                <configuration>-->
+<!--                    <verbose>true</verbose>-->
+<!--                    <dateFormat>yyyy-MM-dd'T'HH:mm:ssZ</dateFormat>-->
+<!--                    <failOnNoGitDirectory>false</failOnNoGitDirectory>-->
+<!--                    <generateGitPropertiesFile>true</generateGitPropertiesFile>-->
+<!--                    <generateGitPropertiesFilename>${project.build.outputDirectory}/git.properties</generateGitPropertiesFilename>-->
+<!--                    <format>json</format>-->
+<!--                    <includeOnlyProperties>-->
+<!--                        <includeOnlyProperty>git.branch</includeOnlyProperty>-->
+<!--                        <includeOnlyProperty>git.build.version</includeOnlyProperty>-->
+<!--                        <includeOnlyProperty>git.commit.id</includeOnlyProperty>-->
+<!--                        <includeOnlyProperty>git.commit.id.abbrev</includeOnlyProperty>-->
+<!--                        <includeOnlyProperty>git.commit.time</includeOnlyProperty>-->
+<!--                        <includeOnlyProperty>git.build.time</includeOnlyProperty>-->
+<!--                    </includeOnlyProperties>-->
+<!--                </configuration>-->
+<!--            </plugin>-->
+
+        </plugins>
+    </build>
+
+</project>
